@@ -89,7 +89,7 @@ class BasicCommand(commands.Cog):
         # 取得したチャンネルそれぞれについて書き込みオブジェクトを取得する
         ch_history_ls = list()
         for ch in cmd.ch:
-            ch_history_ls.append(await ch.history(after =cmd.date).flatten())
+            ch_history_ls.append(await ch.history(after =cmd.date,before= cmd.now).flatten())
         # 取得した書き込みオブジェクトから指定のチャンネル、ユーザーの物のみを抜粋
         edited_dt_ls = GetMsg(ch_history_ls,cmd.usr)
         await ctx.send(f'{cmd.days}間であなたは{len(edited_dt_ls.ls)}回書き込みました。')
