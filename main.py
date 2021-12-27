@@ -49,7 +49,7 @@ class ProcessingDiscord:
             for ch in ctx.guild.text_channels:
                 self.ch.add(ch)
 
-# コマンドをもとに必要情報の入手　(メッセージ取得、ギルドメンバー取得)
+# コマンドをもとに必要情報の入手　(edited_time)
 class GetMsg:
     def __init__(self,ch_history_ls ,usr):
         # メッセージのリスト
@@ -59,12 +59,11 @@ class GetMsg:
         #　抽出するメッセージ数
         self.count = 0
         for each_history in ch_history_ls:
-            #ctxから各投稿のメッセージ本文のみ抽出しリスト化
+            #ctxから各投稿のメッセージの最終編集時間のみ抽出しリスト化
             for msg_info in each_history:
                 edited_dt = msg_info.created_at
                 msg_author = msg_info.author
                 self.allmsg_count += 1
-                # メッセージが空文の場合抽出しない(エラー防止)
                 if msg_author.bot:
                     continue
                 elif usr:
