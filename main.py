@@ -18,18 +18,20 @@ class ProcessingDiscord:
     def __init__(self) -> None:
         pass
 
-    def analize_arg(self,ctx,*args: tuple):
+    def analize_arg(self,ctx,args: tuple):
         self.usr = set()
         self.ch = set()
         self.days = 7
         
+        print(args)
         if args:
             for arg in args:
-                if arg is discord.Member:
+                print(arg,type(arg))
+                if isinstance(arg,discord.Member):
                     self.usr.add(arg)
-                elif arg is discord.TextChannel:
+                elif isinstance(arg,discord.TextChannel):
                     self.ch.add(arg)
-                elif arg is int:
+                elif isinstance(arg,int):
                     arg = math.floor(arg)
                     if 0 < arg < 8:
                         self.days = arg 
@@ -81,7 +83,6 @@ class BasicCommand(commands.Cog):
             
     @commands.command()
     async def t(self,ctx, *args: Union[discord.TextChannel, discord.Member,int,str]):
-        print(args)
         # 入力された引数の分析をし、取得するchannel,member,日数を確定する。
         cmd = ProcessingDiscord()
         cmd.analize_arg(ctx,args)
